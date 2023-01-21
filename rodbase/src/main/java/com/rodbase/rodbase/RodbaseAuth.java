@@ -21,7 +21,7 @@ public class RodbaseAuth {
     }
 
     static RodbaseAuth _instance = new RodbaseAuth();
-    static RodbaseAuth  getInstance() {
+    public static RodbaseAuth  getInstance() {
         _instance = new RodbaseAuth();
         _instance.sharedPreferences = Rodbase.getInstance().getContext().getSharedPreferences(_instance._rodbaseBase.prefix, MODE_PRIVATE);
         return _instance;
@@ -65,7 +65,7 @@ public class RodbaseAuth {
             throw new RodbaseException(e.getMessage());
         }
     }
-    RodbaseAuthUser signInWithEmail(String email, String password, RodbaseAuthListener listener) throws RodbaseException {
+    public RodbaseAuthUser signInWithEmail(String email, String password, RodbaseAuthListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.email_key, email);
@@ -94,7 +94,7 @@ public class RodbaseAuth {
             throw new RodbaseException(e.getMessage());
         }
     }
-    RodbaseAuthUser signInAnonymously(RodbaseAuthListener listener) throws RodbaseException {
+    public RodbaseAuthUser signInAnonymously(RodbaseAuthListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>(_rodbaseBase.data_all);
             Map<String, Object> map =  Post.map(Rodbase.getInstance().paths.sign_in_anonymously, postData);
@@ -120,7 +120,7 @@ public class RodbaseAuth {
             throw new RodbaseException(e.getMessage());
         }
     }
-    public SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     void _saveUser(String id){
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putString(_rodbaseBase.auth_id_key, id);

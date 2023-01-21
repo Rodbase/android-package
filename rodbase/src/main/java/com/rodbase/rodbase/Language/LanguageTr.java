@@ -1,6 +1,6 @@
 package com.rodbase.rodbase.Language;
 
-public class LanguageTr extends Language {
+class LanguageTr extends Language {
     public LanguageTr() {
 
     }

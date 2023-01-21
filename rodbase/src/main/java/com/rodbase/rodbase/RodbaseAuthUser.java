@@ -61,7 +61,7 @@ public class RodbaseAuthUser{
         void onCodeSent();
         void onError(String message);
     }
-    void sendConfirmationCode(int seconds, ConfirmationCodeListener listener) throws RodbaseException {
+    public void sendConfirmationCode(int seconds, ConfirmationCodeListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.email_key, email);
@@ -86,7 +86,7 @@ public class RodbaseAuthUser{
             throw new RodbaseException(e.getMessage());
         }
     }
-    RodbaseAuthUser confirmCode(Context context, String code, RodbaseAuthListener listener) throws JSONException, RodbaseException {
+    public RodbaseAuthUser confirmCode(Context context, String code, RodbaseAuthListener listener) throws JSONException, RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.id_key, id);

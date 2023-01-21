@@ -1,6 +1,6 @@
 package com.rodbase.rodbase.Language;
 
-public interface  LanguageInterface {
+interface  LanguageInterface {
 
     default String initialize_method(){
         return "initialize_method";

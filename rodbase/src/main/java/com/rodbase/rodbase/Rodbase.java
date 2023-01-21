@@ -20,7 +20,7 @@ public class Rodbase {
      private Rodbase(){
 
      }
-    public Context getContext(){
+     public Context getContext(){
          return context;
     }
      private Rodbase(Context context, String apiUrl, String apiKey, Paths paths, String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
@@ -54,7 +54,7 @@ public class Rodbase {
      private static void init(Context context, String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
          instance = new Rodbase(context, apiUrl, apiKey,new Paths(apiUrl),languageCode == null ? _defaultLanguageCode : languageCode, customLanguages == null ? new HashMap<String, Language>() : customLanguages, enableDebug);
      }
-    boolean apiUrlExists() throws RodbaseException {
+     boolean apiUrlExists() throws RodbaseException {
         boolean exception = false;
         if (apiUrl == null) {
             exception = true;
@@ -70,11 +70,11 @@ public class Rodbase {
         }
      }
 
-     void setLanguageCode(String languageCode) {
+     public void setLanguageCode(String languageCode) {
          instance.languageCode = languageCode;
      }
 
-     void addCustomLanguages(Map<String, Language> _customLanguages) {
+     public void addCustomLanguages(Map<String, Language> _customLanguages) {
          for (Map.Entry<String, Language> _customLanguage : _customLanguages.entrySet()) {
              if(instance.customLanguages.containsKey(_customLanguage.getKey())){
                 instance.customLanguages.remove(_customLanguage.getKey());
