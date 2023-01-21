@@ -1,5 +1,7 @@
 package com.rodbase.rodbase;
 
+import android.content.Context;
+
 import com.rodbase.rodbase.Language.Language;
 
 import java.util.HashMap;
@@ -12,19 +14,23 @@ public class Rodbase {
      String apiKey;
      public String languageCode;
      public Map<String, Language> customLanguages;
+     private Context context;
      private static final String _defaultLanguageCode = "en";
 
      private Rodbase(){
 
      }
-
-     private Rodbase(String apiUrl,String apiKey, Paths paths,  String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
-        this.apiUrl = apiUrl;
-        this.paths = paths;
-        this.apiKey = apiKey;
-        this.languageCode = languageCode;
-        this.customLanguages = customLanguages;
-        this.enableDebug = enableDebug;
+    public Context getContext(){
+         return context;
+    }
+     private Rodbase(Context context, String apiUrl, String apiKey, Paths paths, String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
+         this.context = context;
+         this.apiUrl = apiUrl;
+         this.paths = paths;
+         this.apiKey = apiKey;
+         this.languageCode = languageCode;
+         this.customLanguages = customLanguages;
+         this.enableDebug = enableDebug;
      }
 
      private static Rodbase instance = new Rodbase();
@@ -33,20 +39,20 @@ public class Rodbase {
          return instance;
      }
 
-     public static void initialize(String apiUrl, String apiKey){
-         init(apiUrl, apiKey, null, null, false);
+     public static void initialize(Context context, String apiUrl, String apiKey){
+         init(context, apiUrl, apiKey, null, null, false);
      }
-     public static void initialize(String apiUrl, String apiKey, String languageCode){
-         init(apiUrl, apiKey, languageCode, null, false);
+     public static void initialize(Context context, String apiUrl, String apiKey, String languageCode){
+         init(context, apiUrl, apiKey, languageCode, null, false);
      }
-     public static void initialize(String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages){
-         init(apiUrl, apiKey, languageCode, customLanguages, false);
+     public static void initialize(Context context, String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages){
+         init(context, apiUrl, apiKey, languageCode, customLanguages, false);
      }
-     public static void initialize(String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages,boolean enableDebug){
-         init(apiUrl, apiKey, languageCode, customLanguages, enableDebug);
+     public static void initialize(Context context, String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages,boolean enableDebug){
+         init(context, apiUrl, apiKey, languageCode, customLanguages, enableDebug);
      }
-     private static void init(String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
-         instance = new Rodbase(apiUrl, apiKey,new Paths(apiUrl),languageCode == null ? _defaultLanguageCode : languageCode, customLanguages == null ? new HashMap<String, Language>() : customLanguages, enableDebug);
+     private static void init(Context context, String apiUrl, String apiKey, String languageCode, Map<String, Language> customLanguages, boolean enableDebug){
+         instance = new Rodbase(context, apiUrl, apiKey,new Paths(apiUrl),languageCode == null ? _defaultLanguageCode : languageCode, customLanguages == null ? new HashMap<String, Language>() : customLanguages, enableDebug);
      }
     boolean apiUrlExists() throws RodbaseException {
         boolean exception = false;

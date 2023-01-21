@@ -97,7 +97,7 @@ public class RodbaseAuthUser{
                 RodbaseAuthUser user =
                         RodbaseAuthUser._fromMap((Map<String, Object>)map.get(_rodbaseBase.result_str));
                 if (user != null) {
-                    RodbaseAuth.getInstance(context)._saveUser(user.id);
+                    RodbaseAuth.getInstance()._saveUser(user.id);
                     listener.OnCompleted(user);
                     return user;
                 } else {

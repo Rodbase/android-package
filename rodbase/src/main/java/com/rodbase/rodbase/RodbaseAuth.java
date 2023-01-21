@@ -21,11 +21,9 @@ public class RodbaseAuth {
     }
 
     static RodbaseAuth _instance = new RodbaseAuth();
-    public Context context;
-    static RodbaseAuth  getInstance(Context context) {
+    static RodbaseAuth  getInstance() {
         _instance = new RodbaseAuth();
-        _instance.context = context;
-        _instance.sharedPreferences = _instance.context.getSharedPreferences(_instance._rodbaseBase.prefix, MODE_PRIVATE);
+        _instance.sharedPreferences = Rodbase.getInstance().getContext().getSharedPreferences(_instance._rodbaseBase.prefix, MODE_PRIVATE);
         return _instance;
     }
 
