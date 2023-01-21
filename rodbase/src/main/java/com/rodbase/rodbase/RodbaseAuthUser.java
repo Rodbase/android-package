@@ -1,6 +1,5 @@
 package com.rodbase.rodbase;
 
-import android.content.ClipData;
 import android.content.Context;
 
 import com.rodbase.rodbase.Language.Language;
@@ -11,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class RodbaseAuthUser{
     public String id;
@@ -86,7 +84,7 @@ public class RodbaseAuthUser{
             throw new RodbaseException(e.getMessage());
         }
     }
-    public RodbaseAuthUser confirmCode(Context context, String code, RodbaseAuthListener listener) throws JSONException, RodbaseException {
+    public RodbaseAuthUser confirmCode(Context context, String code, RodbaseAuth.CompleteListener listener) throws JSONException, RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.id_key, id);
@@ -114,7 +112,7 @@ public class RodbaseAuthUser{
         }
         return null;
     }
-    private RodbaseAuthUser _update(String email, String name, String password, Map<String, Object> custom_informations, RodbaseAuthUserCustomInformationMode rodbaseAuthUserCustomInformationMode, RodbaseAuthListener listener) throws RodbaseException {
+    private RodbaseAuthUser _update(String email, String name, String password, Map<String, Object> custom_informations, RodbaseAuthUserCustomInformationMode rodbaseAuthUserCustomInformationMode, RodbaseAuth.CompleteListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.id_key, id);
@@ -182,7 +180,7 @@ public class RodbaseAuthUser{
         return custom_information_temp;
     }
     public RodbaseAuthUser deleteCustomInformations(
-            List<String> custom_informations, RodbaseAuthListener listener){
+            List<String> custom_informations, RodbaseAuth.CompleteListener listener){
         Map<String, Object> custom_informations_map = new HashMap<>();
         for(int i = 0; i < custom_informations.size(); i++){
             custom_informations_map.put(custom_informations.get(i), custom_informations.get(i));
@@ -196,7 +194,7 @@ public class RodbaseAuthUser{
             return null;
         }
     }
-    public RodbaseAuthUser update(String email, String name, String password, Map<String, Object> custom_informations, RodbaseAuthListener listener) {
+    public RodbaseAuthUser update(String email, String name, String password, Map<String, Object> custom_informations, RodbaseAuth.CompleteListener listener) {
         try {
             return _update(
                     email,

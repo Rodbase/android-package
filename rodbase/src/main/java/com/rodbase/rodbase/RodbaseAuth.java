@@ -3,7 +3,6 @@ package com.rodbase.rodbase;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.rodbase.rodbase.Language.Language;
@@ -19,7 +18,10 @@ public class RodbaseAuth {
     private RodbaseAuth(){
 
     }
-
+    public interface CompleteListener{
+        void OnCompleted(RodbaseAuthUser user);
+        void OnError(String message);
+    }
     static RodbaseAuth _instance = new RodbaseAuth();
     public static RodbaseAuth  getInstance() {
         _instance = new RodbaseAuth();
@@ -29,7 +31,7 @@ public class RodbaseAuth {
 
     final RodbaseBase _rodbaseBase = new RodbaseBase();
 
-    public RodbaseAuthUser signUpWithEmail(String email, String password, String name, Map<String, String> custom_informations, RodbaseAuthListener listener) throws RodbaseException {
+    public RodbaseAuthUser signUpWithEmail(String email, String password, String name, Map<String, String> custom_informations, CompleteListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.email_key, email);
@@ -65,7 +67,7 @@ public class RodbaseAuth {
             throw new RodbaseException(e.getMessage());
         }
     }
-    public RodbaseAuthUser signInWithEmail(String email, String password, RodbaseAuthListener listener) throws RodbaseException {
+    public RodbaseAuthUser signInWithEmail(String email, String password, CompleteListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>();
             postData.put(_rodbaseBase.email_key, email);
@@ -94,7 +96,7 @@ public class RodbaseAuth {
             throw new RodbaseException(e.getMessage());
         }
     }
-    public RodbaseAuthUser signInAnonymously(RodbaseAuthListener listener) throws RodbaseException {
+    public RodbaseAuthUser signInAnonymously(CompleteListener listener) throws RodbaseException {
         try {
             Map<String, String> postData = new HashMap<>(_rodbaseBase.data_all);
             Map<String, Object> map =  Post.map(Rodbase.getInstance().paths.sign_in_anonymously, postData);
